@@ -1,3 +1,9 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   9router:
     image: 9router-local:latest
@@ -6,7 +12,7 @@ services:
     mem_limit: 1g   # 2026-08-03: cap RAM
     mem_reservation: 256m
     ports:
-      - "0.0.0.0:20128:20128"
+      - "0.0.0.0:20129:20128"
     volumes:
       # Bind mount (bukan named volume) — DB provider connections/credentials tinggal di host:
       # /home/boc0de/projects/9router/.9router (data.sqlite, machine-id, auth/).
@@ -23,6 +29,7 @@ services:
     environment:
       DATA_DIR: /app/data
       PORT: "20128"
+      # Port external: 20129 (swapped with OmniRoute 2026-08-22)
       HOSTNAME: "0.0.0.0"
       NODE_ENV: production
       # 2026-08-06: harden dashboard — override default password (compose env beats .env)
@@ -32,6 +39,7 @@ services:
       # token (CAVEMAN/PONYTAIL). Sebelumnya default localhost:8787 → ECONNREFUSED
       # dari dalam container (localhost = container sendiri).
       HEADROOM_URL: http://headroom:8787
+    logging: *default-logging
 
 volumes:
   9router-data:

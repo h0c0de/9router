@@ -14,7 +14,7 @@ export default {
       apiKeyUrl: "https://build.nvidia.com/settings/api-keys",
     },
   },
-  category: "freeTier",
+  category: "apikey",
   authType: "apikey",
   authModes: ["apikey"],
   transport: {
@@ -22,17 +22,21 @@ export default {
     validateUrl: "https://integrate.api.nvidia.com/v1/models",
   },
   models: [
-    { id: "minimaxai/minimax-m2.7", name: "MiniMax M2.7" },
-    { id: "minimaxai/minimax-m3", name: "MiniMax M3" },
-    { id: "z-ai/glm-5.2", name: "GLM 5.2" },
-    { id: "deepseek-ai/deepseek-v4-pro", name: "DeepSeek V4 Pro" },
-    { id: "deepseek-ai/deepseek-v4-flash", name: "DeepSeek V4 Flash" },
-    { id: "moonshotai/kimi-k2.6", name: "Kimi K2.6" },
-    { id: "nvidia/nemotron-3-ultra-550b-a55b", name: "Nemotron 3 Ultra" },
-    { id: "nvidia/nv-embedqa-e5-v5", name: "NV EmbedQA E5 v5", kind: "embedding" },
-    { id: "nvidia/parakeet-ctc-1.1b-asr", name: "Parakeet CTC 1.1B", params: ["language"], kind: "stt" },
-    { id: "fastpitch", name: "FastPitch", kind: "tts" },
-    { id: "tacotron2", name: "Tacotron2", kind: "tts" },
+    // Free LLM models (verified working 2026-08-28)
+    // Model IDs use short names (like antigravity), upstreamModelId maps to actual NVIDIA API model ID
+    { id: "nemotron-3-super-120b", name: "Nemotron 3 Super 120B", upstreamModelId: "nvidia/nemotron-3-super-120b-a12b" },
+    { id: "nemotron-3-nano-30b", name: "Nemotron 3 Nano 30B", upstreamModelId: "nvidia/nemotron-3-nano-30b-a3b" },
+    { id: "nemotron-3-nano-omni-30b", name: "Nemotron 3 Nano Omni 30B (Reasoning)", upstreamModelId: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning" },
+    { id: "kimi-k3", name: "Kimi K3", upstreamModelId: "moonshotai/kimi-k3" },
+    // Legacy models (may timeout but listed for reference)
+    { id: "nemotron-3-ultra-550b", name: "Nemotron 3 Ultra 550B", upstreamModelId: "nvidia/nemotron-3-ultra-550b-a55b" },
+    // Embedding models
+    { id: "nv-embedqa-e5-v5", name: "NV EmbedQA E5 v5", kind: "embedding", upstreamModelId: "nvidia/nv-embedqa-e5-v5" },
+    // STT models
+    { id: "parakeet-ctc-1.1b", name: "Parakeet CTC 1.1B", params: ["language"], kind: "stt", upstreamModelId: "nvidia/parakeet-ctc-1.1b-asr" },
+    // TTS models
+    { id: "fastpitch", name: "FastPitch", kind: "tts", upstreamModelId: "fastpitch" },
+    { id: "tacotron2", name: "Tacotron2", kind: "tts", upstreamModelId: "tacotron2" },
   ],
   serviceKinds: ["llm","tts","embedding"],
   ttsConfig: {
