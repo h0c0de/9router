@@ -32,8 +32,9 @@ services:
       # Port external: 20129 (swapped with OmniRoute 2026-08-22)
       HOSTNAME: "0.0.0.0"
       NODE_ENV: production
-      # 2026-08-06: harden dashboard — override default password (compose env beats .env)
-      INITIAL_PASSWORD: "123456"
+      # Dashboard password must be supplied by .env/environment; do not keep
+      # the public upstream default in compose because compose env beats .env.
+      INITIAL_PASSWORD: "${INITIAL_PASSWORD:?Set INITIAL_PASSWORD in .env}"
       # 2026-08-06: headroom DIHIDUPKAN KEMBALI — service headroom hidup di network
       # 9router_default yang sama (IP 172.18.0.2), jadi bisa dipakai untuk kompresi
       # token (CAVEMAN/PONYTAIL). Sebelumnya default localhost:8787 → ECONNREFUSED
